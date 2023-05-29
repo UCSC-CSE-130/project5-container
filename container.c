@@ -50,9 +50,12 @@ int container_exec(void* arg) {
   // `upperdir`  should be `/tmp/container/{id}/upper`
   // `workdir`   should be `/tmp/container/{id}/work`
   // `merged`    should be `/tmp/container/{id}/merged`
+  // ensure all directories exist (create if not exists) and
+  // call `mount("overlay", merged, "overlay", MS_RELATIME,
+  //    lowerdir={lowerdir},upperdir={upperdir},workdir={workdir})`
 
   // TODO: Call `change_root` with the `merged` directory
-  // change_root
+  // change_root(merged)
 
   // TODO: use `execvp` to run the given command and return its return value
   return 0;
