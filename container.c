@@ -17,11 +17,9 @@
 #define CONTAINER_ID_MAX 16
 #define CHILD_STACK_SIZE 4096 * 10
 
-// statically allocate memory for stack of child process
-char child_stack[CHILD_STACK_SIZE];
-
 typedef struct container {
   char id[CONTAINER_ID_MAX];
+  // TODO: Add fields
 } container_t;
 
 /**
@@ -88,6 +86,7 @@ int main(int argc, char** argv) {
   // TODO: store all necessary information to `container`
 
   /* Use `clone` to create a child process */
+  char child_stack[CHILD_STACK_SIZE];  // statically allocate stack for child
   int clone_flags = SIGCHLD | CLONE_NEWNS | CLONE_NEWPID;
   int pid = clone(container_exec, &child_stack, clone_flags, &container);
   if (pid < 0) {
